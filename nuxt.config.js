@@ -17,6 +17,13 @@ module.exports = {
   /* Disable SSR */
   mode: 'spa',
   /*
+  ** CSS setting
+  */
+  css: [
+    '~/assets/base.css',
+    { src: 'bulma/bulma.sass', lang: 'sass' }
+  ],
+  /*
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
