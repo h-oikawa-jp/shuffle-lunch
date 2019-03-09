@@ -30,6 +30,14 @@ module.exports = {
   /*
   ** Build configuration
   */
+  env: {
+    APIKEY: process.env.APIKEY,
+    AUTHDOMAIN: process.env.AUTHDOMAIN,
+    DATABASEURL: process.env.DATABASEURL,
+    PROJECTID: process.env.PROJECTID,
+    STORAGEBUCKET: process.env.STORAGEBUCKET,
+    MESSAGINGSENDERID: process.env.MESSAGINGSENDERID
+  },
   build: {
     /*
     ** Run ESLint on save

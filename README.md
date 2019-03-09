@@ -1,30 +1,20 @@
 # Shuffle Lunch Matching App
 
-> Nuxt & Firebase(Hosting and Functions), Firestore, Google Auth Test
-
-
-## Requirements
-
-Need the following environment variables (from your Firebase project).
-
-```bash
-export APIKEY=
-export AUTHDOMAIN=
-export DATABASEURL=
-export PROJECTID=
-export STORAGEBUCKET=
-export MESSAGINGSENDERID=
-```
-
-recommendation: [direnv/direnv](https://github.com/direnv/direnv)
-
 
 ## Build Setup
+
+### First Init
 
 ```bash
 # install dependencies
 $ yarn
+```
 
+It is also necessary the `functions` dir's setup. (see `functions/README.md`)
+
+### Build & Development
+
+```bash
 # serve with hot reload at localhost:3000
 $ yarn dev
 
@@ -37,7 +27,32 @@ $ yarn generate
 ```
 
 
-## Deploy to Firebase
+## Hosting with Your Firebase
+
+### Requirements
+
+* Create a new project on your Firebase console.
+* Enable the following features.
+  * Firebase Authentication
+    * Need **Google** ID provider for login.
+  * Cloud Firestore
+  * Cloud Functions
+  * Firebase Hosting
+* `$ yarn firebase login`
+  * login with your Google account.
+* `$ yarn firebase use --add`
+  * select the project ID to deploy.
+* Set the following environment variables. (used in Nuxt build configuration)
+
+```bash
+export PROJECTID=
+export APIKEY=
+export AUTHDOMAIN=
+```
+
+recommendation: [direnv/direnv](https://github.com/direnv/direnv)
+
+### Deploy to Firebase
 
 ```bash
 $ yarn deploy
