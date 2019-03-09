@@ -1,4 +1,5 @@
 module.exports = {
+  srcDir: 'app',
   /*
   ** Headers of the page
   */
