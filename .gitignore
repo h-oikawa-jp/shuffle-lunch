@@ -1,5 +1,6 @@
 .tmp
 .work
+.envrc
 
 # dependencies
 node_modules
