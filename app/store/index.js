@@ -36,6 +36,7 @@ export const actions = {
       usersCollection
         .doc(user.uid)
         .set({
+          uid: user.uid,
           name: user.displayName,
           email: user.email,
           icon: user.photoURL
@@ -52,6 +53,9 @@ export const actions = {
       commit('setCredential', null);
     }
   },
+  INIT_USERS: firebaseAction(({ bindFirebaseRef }) => {
+    bindFirebaseRef('users', usersCollection)
+  }),
   signIn() {
     firebase.auth().signInWithRedirect(provider);
   },

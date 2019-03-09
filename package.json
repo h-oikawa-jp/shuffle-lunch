@@ -24,7 +24,7 @@
     "bulma": "^0.7.4",
     "firebase": "^5.8.6",
     "nuxt": "^2.0.0",
-    "vuexfire": "^2.3.1"
+    "vuexfire": "^3.0.0-alpha.14"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

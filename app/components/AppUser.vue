@@ -1,0 +1,46 @@
+<template lang="html">
+  <li class="media" v-if="user">
+    <figure class="media-left">
+      <p class="image is-64x64"><img :src="user.icon" /></p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{ user.name }}</strong> <br />
+          <span>{{ user.email }}</span>
+        </p>
+      </div>
+      <nav class="level is-mobile">
+        <div class="level-left"></div>
+        <div class="level-right">
+          <a class="level-item">
+            <a class="icon is-small" @click="unregister"><i class="fa fa-trash"></i></a>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </li>
+</template>
+
+<script>
+  export default {
+    props: {
+      user: Object
+    },
+    methods: {
+      unregister: function (event) {
+        alert('TODO(未実装): Delete User [' + this.user.name + ']');
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  img {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
