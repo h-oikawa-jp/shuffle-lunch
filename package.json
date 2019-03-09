@@ -7,13 +7,18 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build:nuxt": "nuxt build",
+    "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "build": "yarn clean;yarn build:nuxt",
-    "clean": "rm -rf {dist,.nuxt}",
+    "clean": "yarn clean:nuxt;yarn clean:dist",
+    "clean:nuxt": "rm -rf .nuxt",
+    "clean:dist": "rm -rf dist",
+    "dist": "yarn clean;yarn generate",
+    "serve": "firebase serve --only hosting",
+    "deploy": "yarn dist;firebase deploy",
+    "deploy:hosting": "yarn dist;firebase deploy --only hosting",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "yarn lint"
   },
   "dependencies": {
     "firebase": "^5.8.6",
