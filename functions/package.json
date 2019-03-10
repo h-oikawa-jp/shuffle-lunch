@@ -19,5 +19,6 @@
     "firebase-tools": "^6.4.0",
     "typescript": "^3.2.2"
   },
+  "license": "MIT",
   "private": true
 }

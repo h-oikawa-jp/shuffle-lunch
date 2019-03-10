@@ -23,27 +23,20 @@ $ yarn --ignore-engines
 
 ## Local Test
 
-### Run firebase functions:shell
+Run firebase functions server on localhost.
 
 ```bash
-$ yarn shell
-yarn run v1.10.1
-warning ../../package.json: No license field
-$ firebase functions:shell
+$ yarn serve
+
+...
+
+=== Serving from '**/shuffle-lunch'...
+
 i  functions: Preparing to emulate functions.
-Warning: You're using Node.js v11.10.0 but Google Cloud Functions only supports v6.11.5.
-✔  functions: helloWorld
-firebase > 
+✔  functions: helloWorld: http://localhost:5000/{project-id}/{region}/helloWorld
 ```
 
-### Example for functions:shell 
-
-```
-# exec `helloWorld` function
-firebase > helloWorld.get()
-Sent request to function.
-firebase > info: User function triggered, starting execution
-info: Execution took 7 ms, user function completed successfully
-
-RESPONSE RECEIVED FROM FUNCTION: 200, "Hello from Firebase!"
+```bash
+$ curl http://localhost:5000/{project-id}/{region}/helloWorld
+Hello from Firebase!
 ```

@@ -16,3 +16,5 @@ dist
 
 # Firebase
 .firebase
+firebase-debug.log
+.firebaserc
