@@ -16,6 +16,7 @@
       </div>
 
       <div class="column is-narrow is-9" >
+        <ThePostList class="section" />
         <TheUserList class="section" />
       </div>
     </div>
@@ -25,6 +26,7 @@
 <script>
 import AppLogo from '~/components/AppLogo.vue'
 import TheUserInfo from '~/components/TheUserInfo.vue'
+import ThePostList from '~/components/ThePostList.vue'
 import TheUserList from '~/components/TheUserList.vue'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -32,6 +34,7 @@ export default {
   components: {
     AppLogo,
     TheUserInfo,
+    ThePostList,
     TheUserList,
   },
   async mounted() {
@@ -39,12 +42,13 @@ export default {
       this.user
         ? Promise.resolve()
         : this.$store.dispatch('SET_CREDENTIAL'),
+      this.posts.length ? Promise.resolve() : this.$store.dispatch('INIT_POSTS'),
       this.users.length ? Promise.resolve() : this.$store.dispatch('INIT_USERS')
     ]);
     this.loadComplete();
   },
   computed: {
-    ...mapGetters(['user', 'users', 'isLoaded'])
+    ...mapGetters(['user', 'users', 'posts', 'isLoaded'])
   },
   methods: {
     ...mapActions(['loadComplete'])

@@ -1,19 +1,31 @@
 import firebase from '~/plugins/firebase'
 import auth from '~/plugins/auth'
+import dayjs from 'dayjs'
+import uuid from 'uuid'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 const firestore = firebase.firestore();
 
 const usersCollection = firestore.collection('users');
+const postsCollection = firestore
+  .collection('posts')
+  .orderBy('createdAt', 'desc');
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
 export const state = () => ({
   user: null,
   users: [],
+  posts: [],
   isLoaded: false
 });
 
 export const getters = {
+  posts: state => {
+    return state.posts.map(post => {
+      post.user = state.users.find(user => user.uid === post.createdBy.uid);
+      return post
+    })
+  },
   users: state => state.users,
   user: state => state.user,
   isLoaded: state => state.isLoaded
@@ -55,6 +67,21 @@ export const actions = {
   },
   INIT_USERS: firebaseAction(({ bindFirebaseRef }) => {
     bindFirebaseRef('users', usersCollection)
+  }),
+  INIT_POSTS: firebaseAction(({ bindFirebaseRef }) => {
+    bindFirebaseRef('posts', postsCollection)
+  }),
+  ADD_POST: firebaseAction((ctx, { user, body }) => {
+    const id = uuid.v4();
+    firestore
+      .collection('posts')
+      .doc(`${id}`)
+      .set({
+        id,
+        body,
+        createdBy: usersCollection.doc(user.uid),
+        createdAt: dayjs().toDate()
+      })
   }),
   signIn() {
     firebase.auth().signInWithRedirect(provider);
