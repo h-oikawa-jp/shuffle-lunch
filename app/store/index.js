@@ -1,7 +1,6 @@
 import firebase from '~/plugins/firebase'
 import auth from '~/plugins/auth'
 import dayjs from 'dayjs'
-import uuid from 'uuid'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 const firestore = firebase.firestore();
 
@@ -72,12 +71,10 @@ export const actions = {
     bindFirebaseRef('posts', postsCollection)
   }),
   ADD_POST: firebaseAction((ctx, { user, body }) => {
-    const id = uuid.v4();
     firestore
       .collection('posts')
-      .doc(`${id}`)
+      .doc()
       .set({
-        id,
         body,
         createdBy: usersCollection.doc(user.uid),
         createdAt: dayjs().toDate()

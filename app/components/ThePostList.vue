@@ -12,7 +12,6 @@
           :post="post"
           :key="post.id"
           v-for="post in posts"
-          v-if="post.id"
         />
       </transition-group>
     </ul>
