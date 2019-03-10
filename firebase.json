@@ -8,8 +8,12 @@
     ],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/functions/shuffle/**",
+        "function": "shuffle"
+      },
+      {
+        "source": "/functions/helloWorld",
+        "function": "helloWorld"
       }
     ]
   },
