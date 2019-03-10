@@ -16,7 +16,9 @@
     "dist": "yarn clean;yarn generate",
     "serve": "firebase serve --only hosting",
     "deploy": "yarn dist;firebase deploy",
-    "deploy:hosting": "yarn dist;firebase deploy --only hosting",
+    "deploy:app": "yarn dist;yarn deploy:hosting",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "yarn lint"
   },
