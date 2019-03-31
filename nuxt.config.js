@@ -29,6 +29,23 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
   /*
+  ** Nuxt.js Modules
+  */
+  modules: [
+    '@nuxtjs/vuetify'
+  ],
+  /*
+  ** Vuetify theme config
+  */
+  vuetify: {
+    theme: {
+      primary: '#3f51b5',
+      secondary: '#b0bec5',
+      accent: '#8c9eff',
+      error: '#b71c1c'
+    }
+  },
+  /*
   ** Build configuration
   */
   env: {
