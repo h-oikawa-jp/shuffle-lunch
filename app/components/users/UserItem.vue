@@ -9,15 +9,15 @@
           <strong>{{ user.name }}</strong> <br />
           <span>{{ user.email }}</span>
         </p>
+        <nav class="level is-mobile">
+          <div class="level-left"></div>
+          <div class="level-right">
+            <a class="level-item">
+              <a class="icon is-small" @click="unregister"><i class="fa fa-trash"></i></a>
+            </a>
+          </div>
+        </nav>
       </div>
-      <nav class="level is-mobile">
-        <div class="level-left"></div>
-        <div class="level-right">
-          <a class="level-item">
-            <a class="icon is-small" @click="unregister"><i class="fa fa-trash"></i></a>
-          </a>
-        </div>
-      </nav>
     </div>
   </li>
 </template>
@@ -36,6 +36,11 @@
 </script>
 
 <style scoped>
+  .media {
+    border-top: none;
+    margin-top: 0.5rem;
+    padding: 1rem;
+  }
   img {
     border-radius: 50%;
     overflow: hidden;

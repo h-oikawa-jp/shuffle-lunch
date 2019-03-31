@@ -1,6 +1,7 @@
 <template>
   <v-app id="app">
       <v-navigation-drawer
+        class="teal lighten-5"
         fixed
         v-model="drawer"
         app
@@ -26,7 +27,7 @@
         </v-toolbar-title>
       </v-toolbar>
 
-      <v-content>
+      <v-content class="teal lighten-4">
         <nuxt />
       </v-content>
 

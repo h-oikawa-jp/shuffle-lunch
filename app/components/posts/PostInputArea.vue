@@ -31,7 +31,7 @@
     methods: {
       async doPost() {
         if (!this.body) return;
-        await this.$store.dispatch('ADD_POST', {
+        await this.$store.dispatch('posts/ADD_POST', {
           user: this.user,
           body: this.body,
         });
@@ -40,17 +40,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .field-wrapper {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    padding: 8px;
-    background: #fff;
-  }
-
-  .button.is-primary {
-    background: #1da1f2;
-  }
-</style>

@@ -17,7 +17,7 @@
             <a class="icon is-small" @click="shuffle"><i class="fa fa-random"></i></a>
           </a>
           <a class="level-item">
-            <a class="icon is-small" @click="unregister"><i class="fa fa-trash"></i></a>
+            <a class="icon is-small" @click="deletePost"><i class="fa fa-trash"></i></a>
           </a>
         </div>
       </nav>
@@ -45,6 +45,7 @@
 
   export default {
     props: {
+      user: Object,
       post: Object
     },
     computed: {
@@ -56,14 +57,22 @@
       shuffle: function (event) {
         axios.get(`/functions/shuffle/${this.post.id}`, {})
       },
-      unregister: function (event) {
-        alert('TODO(未実装): Delete Post [' + this.post.id + ']');
+      deletePost: function (event) {
+        this.$store.dispatch('posts/DELETE_POST', {
+          user: this.user,
+          post: this.post,
+        });
       }
     }
   }
 </script>
 
 <style scoped>
+  .media {
+    border-top: none;
+    padding-bottom: 1rem;
+  }
+
   img {
     border-radius: 50%;
     overflow: hidden;
