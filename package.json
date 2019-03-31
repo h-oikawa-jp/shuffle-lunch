@@ -23,10 +23,10 @@
     "precommit": "yarn lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/font-awesome": "^1.0.3",
     "@nuxtjs/vuetify": "^0.5.5",
     "autolinker": "^3.0.4",
-    "axios": "^0.18.0",
     "bulma": "^0.7.4",
     "dayjs": "^1.8.9",
     "firebase": "^5.8.6",

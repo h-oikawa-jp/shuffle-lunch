@@ -31,6 +31,7 @@ module.exports = {
   ** Nuxt.js Modules
   */
   modules: [
+    '@nuxtjs/axios',
     '@nuxtjs/vuetify',
     '@nuxtjs/font-awesome'
   ],
