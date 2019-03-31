@@ -3,7 +3,6 @@
     <div class="columns">
       <div class="column is-narrow is-3" >
         <div class="title-logo" >
-          <app-logo/>
           <h1 class="title">
             Shuffle Lunch
           </h1>
@@ -24,7 +23,6 @@
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
 import TheUserInfo from '~/components/TheUserInfo.vue'
 import ThePostList from '~/components/ThePostList.vue'
 import TheUserList from '~/components/TheUserList.vue'
@@ -32,7 +30,6 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    AppLogo,
     TheUserInfo,
     ThePostList,
     TheUserList,
