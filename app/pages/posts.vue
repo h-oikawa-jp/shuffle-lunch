@@ -47,9 +47,6 @@ export default {
 </script>
 
 <style scoped>
-  .post-area {
-    margin-bottom: 1rem;
-  }
   @keyframes slideIn {
     0% {
       opacity: 0;

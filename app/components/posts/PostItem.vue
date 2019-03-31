@@ -50,7 +50,10 @@
     },
     computed: {
       formattedPost() {
-        return link(h(this.post.body))
+        const nl2brBody = h(this.post.body)
+          .replace(/\r\n/g, "<br />")
+          .replace(/(\n|\r)/g, "<br />");
+        return link(nl2brBody)
       }
     },
     methods: {

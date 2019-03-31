@@ -1,18 +1,25 @@
 <template lang="html">
   <div class="field-wrapper">
-    <form class="field is-grouped" @submit.prevent="doPost">
+    <v-form class="field is-grouped">
       <p class="control is-expanded">
-        <input
-          class="input"
-          type="text"
-          placeholder="Post New Event"
+        <v-textarea
+          name="input-post-body"
+          rows="1"
+          auto-grow
+          color="teal accent-4"
+          label="Post New Event"
           v-model="body"
-        />
+        ></v-textarea>
       </p>
       <p class="control">
-        <button class="button is-primary" :disabled="!this.body">Post</button>
+        <v-btn
+          large
+          :disabled="!this.body"
+          color="teal accent-4"
+          @click="doPost"
+        >Post</v-btn>
       </p>
-    </form>
+    </v-form>
   </div>
 </template>
 
