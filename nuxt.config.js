@@ -11,7 +11,6 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Shuffle Lunch Matching App' }
     ],
     link: [
-      { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
@@ -32,7 +31,8 @@ module.exports = {
   ** Nuxt.js Modules
   */
   modules: [
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/font-awesome'
   ],
   /*
   ** Vuetify theme config
