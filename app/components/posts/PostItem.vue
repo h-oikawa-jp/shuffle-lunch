@@ -9,7 +9,7 @@
       <nav class="level is-mobile">
         <div class="level-left">
           <span v-if="post.createdBy">
-            posted by <strong>{{ post.createdBy.name }}</strong>({{ post.createdBy.email }})
+            posted by <strong>{{ post.createdBy.name }}</strong> ({{ post.createdBy.email }})
           </span>
         </div>
         <div class="level-right">
@@ -22,18 +22,46 @@
         </div>
       </nav>
 
-      <div class="shuffles">
-        <h3>組合せ結果</h3>
-        <ul v-if="post.shuffles">
-          <li v-for="(pairs, i) in post.shuffles">
-            {{i}}組目: [
-            <span v-for="user in pairs">
-              <strong>{{ user.name }}</strong>({{ user.email }})
-            </span>
-            ]
-          </li>
-        </ul>
-      </div>
+      <v-data-table
+        v-model="selected"
+        :headers="headers"
+        :pagination.sync="pagination"
+        :items="shuffledGroups"
+        class="shuffles elevation-1"
+        v-if="post.shuffles"
+      >
+        <template v-slot:headers="props">
+          <tr>
+            <th class="caption font-weight-bold">組合せ結果</th>
+            <th
+              v-for="header in props.headers"
+              :key="header.text"
+            >
+              {{ header.text }}
+            </th>
+          </tr>
+        </template>
+        <template v-slot:items="groups">
+          <td>
+            {{groups.index+1}}組目
+          </td>
+          <td v-for="user in groups.item">
+            <div class="media">
+              <figure class="media-left">
+                <p class="image is-32x32"><img :src="user.icon" /></p>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ user.name }}</strong> <br />
+                    <span>{{ user.email }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </td>
+        </template>
+      </v-data-table>
     </div>
   </li>
 </template>
@@ -42,19 +70,32 @@
   import h from 'htmlspecialchars'
   import { link } from 'autolinker'
   import axios from 'axios'
+  import * as R from 'ramda'
 
   export default {
     props: {
       user: Object,
       post: Object
     },
+    data: () => ({
+      pagination: {},
+    }),
     computed: {
       formattedPost() {
         const nl2brBody = h(this.post.body)
           .replace(/\r\n/g, "<br />")
           .replace(/(\n|\r)/g, "<br />");
         return link(nl2brBody)
-      }
+      },
+      headers() {
+        const maxGroupRange = Math.max.apply(null, R.values(this.post.shuffles).map(x => x.length));
+        return R.map(i => {
+          return { text: i + '人目', value: i, sortable: false }
+        }, R.range(1, maxGroupRange+1))
+      },
+      shuffledGroups() {
+        return R.values(this.post.shuffles)
+      },
     },
     methods: {
       shuffle: function (event) {
@@ -91,14 +132,7 @@
     font-weight: bold;
   }
 
-  .shuffles ul {
-    border: solid 1px #e6e6e6;
-    text-align: center;
-    padding: 16px 0;
-
-  }
-
-  .shuffles span + span:before {
-    content: " - ";
+  .shuffles table td, table th {
+    vertical-align: middle;
   }
 </style>

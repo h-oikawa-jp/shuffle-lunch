@@ -32,6 +32,7 @@
     "firebase": "^5.8.6",
     "htmlspecialchars": "^1.0.5",
     "nuxt": "^2.0.0",
+    "ramda": "^0.26.1",
     "uuid": "^3.3.2",
     "vuexfire": "^3.0.0-alpha.14"
   },
