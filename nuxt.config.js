@@ -14,6 +14,17 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  /*
+  ** Routes override
+  */
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        path: '/',
+        redirect: '/posts'
+      })
+    }
+  },
   /* Disable SSR */
   mode: 'spa',
   /*
@@ -35,17 +46,6 @@ module.exports = {
     '@nuxtjs/vuetify',
     '@nuxtjs/font-awesome'
   ],
-  /*
-  ** Vuetify theme config
-  */
-  vuetify: {
-    theme: {
-      primary: '#3f51b5',
-      secondary: '#b0bec5',
-      accent: '#8c9eff',
-      error: '#b71c1c'
-    }
-  },
   /*
   ** Build configuration
   */

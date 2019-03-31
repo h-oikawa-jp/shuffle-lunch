@@ -1,39 +1,75 @@
 <template>
-  <div id="app">
-    <div class="wrapper wrapper-loading" v-if="!isLoaded"><TheLoading /></div>
-    <div class="wrapper wrapper-loaded" v-show="isLoaded"><nuxt /></div>
-  </div>
+  <v-app id="app">
+      <v-navigation-drawer
+        fixed
+        v-model="drawer"
+        app
+      >
+        <v-layout
+          justify-center
+        >
+          <h1 class="headline font-weight-bold primary--text">
+            Shuffle Lunch
+          </h1>
+        </v-layout>
+
+        <ThePageLinks />
+
+        <div v-if="!isAccountLoaded"><TheLoading /></div>
+        <div v-show="isAccountLoaded"><TheUserInfo /></div>
+      </v-navigation-drawer>
+
+      <v-toolbar color="teal" dark fixed app>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-title>
+          <h2 class="subheading font-weight-bold">{{pageName}}</h2>
+        </v-toolbar-title>
+      </v-toolbar>
+
+      <v-content>
+        <nuxt />
+      </v-content>
+
+    <v-footer color="teal" dark app>
+      <v-layout
+        justify-center
+        align-center
+      >
+        <span>&copy; 2019 hiroyuki-oikawa</span>
+      </v-layout>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
 import TheLoading from '~/components/TheLoading.vue'
-import { mapGetters } from 'vuex'
+import ThePageLinks from '~/components/menu/ThePageLinks.vue'
+import TheUserInfo from '~/components/menu/TheUserInfo.vue'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  data() {
+    return {
+      drawer: null
+    }
+  },
   components: {
-    TheLoading
+    TheLoading,
+    ThePageLinks,
+    TheUserInfo,
+  },
+  async mounted() {
+    await Promise.all([
+      this.user
+        ? Promise.resolve()
+        : this.SET_CREDENTIAL(),
+    ]);
   },
   computed: {
-    ...mapGetters(['isLoaded'])
-  }
+    ...mapGetters(['pageName', 'user', 'isAccountLoaded'])
+  },
+  methods: {
+    ...mapActions(['SET_CREDENTIAL'])
+  },
 }
 </script>
-
-<style scoped>
-#app {
-  background: #e6ecf0;
-}
-.wrapper {
-  width: 100vw;
-  min-height: 100vh;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-  background: #fff;
-  padding: 32px;
-}
-.wrapper-loaded {
-  background: #fafafa;
-  padding-top: 0;
-}
-</style>

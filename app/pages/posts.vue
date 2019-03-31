@@ -4,21 +4,21 @@
       justify-center
       align-center
     >
-      <TheUserList />
+      <ThePostList />
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import TheUserList from '~/components/TheUserList.vue'
+import ThePostList from '~/components/ThePostList.vue'
 import { mapMutations } from 'vuex'
 
 export default {
   components: {
-    TheUserList,
+    ThePostList,
   },
   async mounted() {
-    this.setPageName('ユーザ一覧');
+    this.setPageName('イベント一覧');
   },
   methods: {
     ...mapMutations(['setPageName']),

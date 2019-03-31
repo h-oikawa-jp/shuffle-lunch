@@ -6,21 +6,26 @@ const firestore = firebase.firestore();
 const provider = new firebase.auth.GoogleAuthProvider();
 
 export const state = () => ({
+  pageName: "aaa",
   user: null,
-  isLoaded: false
+  isAccountLoaded: false
 });
 
 export const getters = {
+  pageName: state => state.pageName,
   user: state => state.user,
-  isLoaded: state => state.isLoaded
+  isAccountLoaded: state => state.isAccountLoaded
 };
 
 export const mutations = {
+  setPageName(state, next) {
+    state.pageName = next
+  },
   setCredential(state, user) {
     state.user = user
   },
-  setIsLoaded(state, next) {
-    state.isLoaded = !!next
+  setIsAccountLoaded(state, next) {
+    state.isAccountLoaded = !!next
   },
   ...firebaseMutations
 };
@@ -29,6 +34,8 @@ export const actions = {
   async SET_CREDENTIAL({ commit }) {
     const user = await auth();
     if (user) {
+      // firebase.auth で取得したアカウント情報を firestore 'users' collection へ反映。
+      // => functions を使用してサーバ側でやるべき?
       firestore
         .collection('users')
         .doc(user.uid)
@@ -49,6 +56,7 @@ export const actions = {
     } else {
       commit('setCredential', null);
     }
+    commit('setIsAccountLoaded', true);
   },
   signIn() {
     firebase.auth().signInWithRedirect(provider);
@@ -56,8 +64,5 @@ export const actions = {
   signOut() {
     firebase.auth().signOut()
       .then(() => location.reload());
-  },
-  loadComplete({ commit }) {
-    commit('setIsLoaded', true)
   }
 };
