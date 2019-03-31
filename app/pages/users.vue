@@ -15,7 +15,7 @@
       </div>
 
       <div class="column is-narrow is-9" >
-        <ThePostList class="section" />
+        <TheUserList class="section" />
       </div>
     </div>
   </section>
@@ -23,13 +23,13 @@
 
 <script>
 import TheUserInfo from '~/components/TheUserInfo.vue'
-import ThePostList from '~/components/ThePostList.vue'
+import TheUserList from '~/components/TheUserList.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
     TheUserInfo,
-    ThePostList,
+    TheUserList,
   },
   async mounted() {
     await Promise.all([
