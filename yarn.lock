@@ -1107,6 +1107,13 @@
     axios-retry "^3.1.2"
     consola "^2.5.6"
 
+"@nuxtjs/bulma@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/bulma/-/bulma-1.2.3.tgz#75a624a8035c6eef14acddae0180e7c1ab4c309c"
+  integrity sha512-uSqNCZicSf6X3CAOkw+kNmSAHOEo4l7Ng2XY95OiNhBJ1GbP6uZuphW+KNy8nbvtx9wobCKJVOq0Z1F4JrFTdQ==
+  dependencies:
+    bulma "^0.7.4"
+
 "@nuxtjs/font-awesome@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/font-awesome/-/font-awesome-1.0.3.tgz#66a88c8d9b0883dca992e3dd72e53fce22fcc418"

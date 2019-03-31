@@ -32,7 +32,6 @@ module.exports = {
   */
   css: [
     '~/assets/base.css',
-    { src: 'bulma/bulma.sass', lang: 'sass' }
   ],
   /*
   ** Customize the progress bar color
@@ -43,6 +42,7 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/bulma',
     '@nuxtjs/vuetify',
     '@nuxtjs/font-awesome'
   ],
