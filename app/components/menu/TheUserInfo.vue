@@ -8,8 +8,9 @@
               <img :src="user.photoURL" />
             </div>
           </figure>
-          <p class="has-text-centered">
+          <p class="has-text-centered ml-4">
             <strong>{{ user.displayName }}</strong>
+            <a class="icon ml-1" @click="unregister"><i class="fa fa-trash"></i></a>
           </p>
         </div>
       </div>
@@ -29,6 +30,12 @@ export default {
     ...mapGetters(['user'])
   },
   methods: {
+    unregister: function (event) {
+      const res = confirm('ログイン中のアカウント[' + this.user.email + ']を削除します。本当によろしいですか？');
+      if( res === true ) {
+        this.$store.dispatch('UNREGISTER');
+      }
+    },
     ...mapActions(['signIn', 'signOut'])
   }
 }

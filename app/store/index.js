@@ -58,6 +58,22 @@ export const actions = {
     }
     commit('setIsAccountLoaded', true);
   },
+  async UNREGISTER({ commit }) {
+    const user = await auth();
+    if (user) {
+      await firestore
+        .collection('users')
+        .doc(user.uid)
+        .delete()
+        .then();
+
+      await user.delete();
+      await firebase.auth().signOut();
+    }
+
+    commit('setCredential', null);
+    location.reload();
+  },
   signIn() {
     firebase.auth().signInWithRedirect(provider);
   },
