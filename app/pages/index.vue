@@ -36,13 +36,11 @@ export default {
       this.user
         ? Promise.resolve()
         : this.$store.dispatch('SET_CREDENTIAL'),
-      this.posts.length ? Promise.resolve() : this.$store.dispatch('INIT_POSTS'),
-      this.users.length ? Promise.resolve() : this.$store.dispatch('INIT_USERS')
     ]);
     this.loadComplete();
   },
   computed: {
-    ...mapGetters(['user', 'users', 'posts', 'isLoaded'])
+    ...mapGetters(['user', 'isLoaded'])
   },
   methods: {
     ...mapActions(['loadComplete'])

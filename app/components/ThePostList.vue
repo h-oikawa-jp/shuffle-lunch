@@ -29,8 +29,16 @@
       AppPost,
       ThePostArea
     },
+    async mounted() {
+      await Promise.all([
+        this.posts.length ? Promise.resolve() : this.$store.dispatch('posts/INIT_POSTS')
+      ]);
+    },
     computed: {
-      ...mapGetters(['user', 'posts'])
+      ...mapGetters(['user']),
+      ...mapGetters('posts', {
+        posts: 'list'
+      })
     }
   }
 </script>

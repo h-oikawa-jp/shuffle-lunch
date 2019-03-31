@@ -27,8 +27,15 @@
     components: {
       AppUser
     },
+    async mounted() {
+      await Promise.all([
+        this.users.length ? Promise.resolve() : this.$store.dispatch('users/INIT_USERS')
+      ]);
+    },
     computed: {
-      ...mapGetters(['users'])
+      ...mapGetters('users', {
+        users: 'list'
+      })
     }
   }
 </script>
