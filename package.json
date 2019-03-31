@@ -23,6 +23,7 @@
     "precommit": "yarn lint"
   },
   "dependencies": {
+    "@nuxtjs/vuetify": "^0.5.5",
     "autolinker": "^3.0.4",
     "axios": "^0.18.0",
     "bulma": "^0.7.4",

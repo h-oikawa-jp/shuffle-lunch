@@ -1097,6 +1097,13 @@
     webpack-node-externals "^1.7.2"
     webpackbar "^3.1.5"
 
+"@nuxtjs/vuetify@^0.5.5":
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-0.5.5.tgz#0c556afc6ea638dd8e28bf6100b69138fc1b57e3"
+  integrity sha512-koSWjuMHN6KYu0O1aeDpY0xVgohKdoWlZCHRdeTUaY07H9SbVQQee0Mj0mrKXAh0ShOpcAoUCX6ttKuS1tap6w==
+  dependencies:
+    vuetify "^1.5.1"
+
 "@nuxtjs/youch@^4.2.3":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/youch/-/youch-4.2.3.tgz#36f8b22df5a0efaa81373109851e1d857aca6bed"
@@ -9896,6 +9903,11 @@ vue@^2.5.22:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.8.tgz#f21cbc536bfc14f7d1d792a137bb12f69e60ea91"
   integrity sha512-+vp9lEC2Kt3yom673pzg1J7T1NVGuGzO9j8Wxno+rQN2WYVBX2pyo/RGQ3fXCLh2Pk76Skw/laAPCuBuEQ4diw==
+
+vuetify@^1.5.1:
+  version "1.5.8"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.8.tgz#58bbbe07a05e1cb00fffa9abed3f2f1d8e6ca29d"
+  integrity sha512-AmyJb/kAIivEC+CM5BVqiumxUeaJRB4oKzKjEzXpI0tCbkNQIrTVrVjB1+ZnAk9al/6fJp63Hq8uy2RfRmZoRg==
 
 vuex@^3.1.0:
   version "3.1.0"
