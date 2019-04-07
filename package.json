@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.4.1",
-    "@nuxtjs/bulma": "^1.2.3",
     "@nuxtjs/font-awesome": "^1.0.3",
     "@nuxtjs/vuetify": "^0.5.5",
     "autolinker": "^3.0.4",

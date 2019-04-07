@@ -42,7 +42,6 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/bulma',
     '@nuxtjs/vuetify',
     '@nuxtjs/font-awesome'
   ],
