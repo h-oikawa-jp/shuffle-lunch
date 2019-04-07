@@ -30,18 +30,32 @@
               dark
               small
               color="indigo"
+              v-if="!isLocked"
               @click="shuffle"
             >
               <v-icon>shuffle</v-icon>
             </v-btn>
+
             <v-btn
               fab
               dark
               small
               color="green"
-              @click="shuffle"
+              v-if="isLocked"
+              @click="toggleLock"
             >
-              <v-icon>lock</v-icon>
+              <v-icon>fa-lock</v-icon>
+            </v-btn>
+
+            <v-btn
+              fab
+              dark
+              small
+              color="green"
+              v-if="!isLocked"
+              @click="toggleLock"
+            >
+              <v-icon>fa-unlock</v-icon>
             </v-btn>
           </v-layout>
         </v-list-tile>
@@ -123,6 +137,9 @@ export default {
     ...mapGetters({
       post: 'posts/one'
     }),
+    isLocked() {
+      return R.includes('LOCKED', this.post.state);
+    },
     formattedPost() {
       const nl2brBody = h(this.post ? this.post.body : "")
         .replace(/\r\n/g, "<br />")
@@ -137,8 +154,18 @@ export default {
   },
   methods: {
     ...mapMutations(['setPageName']),
+    toggleLock: function (event) {
+      this.$store.dispatch('posts/SET_POST_STATE', {
+        state: (this.isLocked)
+          ? this.post.state.filter(v => v !== 'LOCKED')
+          : this.post.state.concat(['LOCKED']),
+        user: this.user,
+        post: this.post,
+      });
+    },
     shuffle: function (event) {
       axios.get(`/functions/shuffle/${this.post.id}`, {})
+        .then(this.toggleLock)
     },
   },
 }

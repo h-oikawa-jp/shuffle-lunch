@@ -49,4 +49,13 @@ export const actions = {
         deletedAt: dayjs().toDate()
       })
   }),
+  SET_POST_STATE: firebaseAction((ctx, { user, post, state }) => {
+    postsCollection
+      .doc(post.id)
+      .update({
+        state,
+        updatedBy: usersCollection.doc(user.uid),
+        updatedAt: dayjs().toDate()
+      })
+  }),
 };

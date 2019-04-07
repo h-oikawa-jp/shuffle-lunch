@@ -29,15 +29,40 @@
           >
             <v-icon>edit</v-icon>
           </v-btn>
+
           <v-btn
             fab
             dark
             small
             color="red"
+            v-if="!isLocked"
             @click="deletePost"
           >
             <v-icon>delete</v-icon>
           </v-btn>
+
+          <v-btn
+            fab
+            dark
+            small
+            color="green"
+            v-if="isLocked"
+            @click="toggleLock"
+          >
+            <v-icon>fa-lock</v-icon>
+          </v-btn>
+
+          <v-btn
+            fab
+            dark
+            small
+            color="green"
+            v-if="!isLocked"
+            @click="toggleLock"
+          >
+            <v-icon>fa-unlock</v-icon>
+          </v-btn>
+
         </v-layout>
       </v-list-tile>
     </v-card-actions>
@@ -48,6 +73,7 @@
 <script>
   import h from 'htmlspecialchars'
   import { link } from 'autolinker'
+  import * as R from 'ramda'
 
   export default {
     props: {
@@ -55,6 +81,9 @@
       post: Object
     },
     computed: {
+      isLocked() {
+        return R.includes('LOCKED', this.post.state);
+      },
       formattedPost() {
         const nl2brBody = h(this.post.body)
           .replace(/\r\n/g, "<br />")
@@ -66,6 +95,15 @@
       },
     },
     methods: {
+      toggleLock: function (event) {
+        this.$store.dispatch('posts/SET_POST_STATE', {
+          state: (this.isLocked)
+            ? this.post.state.filter(v => v !== 'LOCKED')
+            : this.post.state.concat(['LOCKED']),
+          user: this.user,
+          post: this.post,
+        });
+      },
       deletePost: function (event) {
         const res = confirm('イベント[' + this.post.title + ']を削除します。本当によろしいですか？');
         if( res === true ) {
