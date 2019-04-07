@@ -4,29 +4,49 @@
       justify-center
       align-center
     >
-      <ul class="list users">
-        <transition-group name="user">
-          <UserItem
-            class="list-item user"
-            :user="user"
-            :key="user.uid"
-            v-for="user in users"
-            v-if="user.uid"
-          />
-        </transition-group>
-      </ul>
+
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        :pagination.sync="pagination"
+        item-key="uid"
+        class="users elevation-1"
+      >
+        <template v-slot:items="props">
+          <tr>
+            <td>
+              <v-list-tile-avatar color="grey darken-3">
+                <v-img
+                  class="elevation-6"
+                  :src="props.item.icon"
+                ></v-img>
+              </v-list-tile-avatar>
+            </td>
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.email }}</td>
+          </tr>
+        </template>
+      </v-data-table>
+
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import UserItem from '~/components/users/UserItem.vue'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  components: {
-    UserItem,
-  },
+  data: () => ({
+    pagination: {
+      rowsPerPage: 10,
+      sortBy: 'name',
+    },
+    headers: [
+      { text: '', value: 'avatar', align: 'left', sortable: false },
+      { text: '名前', value: 'name' },
+      { text: 'メールアドレス', value: 'email' },
+    ],
+  }),
   async mounted() {
     this.setPageName('ユーザ一覧');
     await Promise.all([
@@ -47,13 +67,5 @@ export default {
 <style scoped>
   .users {
     width: 100%;
-  }
-  @keyframes slideIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
   }
 </style>

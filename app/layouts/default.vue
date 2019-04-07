@@ -14,6 +14,8 @@
           </h1>
         </v-layout>
 
+        <v-divider></v-divider>
+
         <ThePageLinks />
 
         <div v-if="!isAccountLoaded"><TheLoading /></div>
@@ -74,3 +76,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>

@@ -1,26 +1,27 @@
 <template lang="html">
-  <div class="field-wrapper">
-    <v-form class="field is-grouped">
-      <p class="control is-expanded">
-        <v-textarea
-          name="input-post-body"
-          rows="1"
-          auto-grow
-          color="teal accent-4"
-          label="Post New Event"
-          v-model="body"
-        ></v-textarea>
-      </p>
-      <p class="control">
-        <v-btn
-          large
-          :disabled="!this.body"
-          color="teal accent-4"
-          @click="doPost"
-        >Post</v-btn>
-      </p>
-    </v-form>
-  </div>
+  <v-form class="">
+    <v-text-field
+      label="Title"
+      required
+      v-model="title"
+    ></v-text-field>
+
+    <v-textarea
+      name="input-post-body"
+      rows="1"
+      auto-grow
+      color="teal"
+      label="Body"
+      v-model="body"
+    ></v-textarea>
+
+    <v-btn
+      large
+      :disabled="!this.title"
+      color="teal accent-4"
+      @click="doPost"
+    >Post</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -29,7 +30,8 @@
   export default {
     data() {
       return {
-        body: ''
+        title: '',
+        body: '',
       }
     },
     computed: {
@@ -40,9 +42,11 @@
         if (!this.body) return;
         await this.$store.dispatch('posts/ADD_POST', {
           user: this.user,
+          title: this.title,
           body: this.body,
         });
-        this.body = ''
+        this.title = '';
+        this.body = '';
       }
     }
   }

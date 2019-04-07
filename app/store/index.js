@@ -6,7 +6,7 @@ const firestore = firebase.firestore();
 const provider = new firebase.auth.GoogleAuthProvider();
 
 export const state = () => ({
-  pageName: "aaa",
+  pageName: "",
   user: null,
   isAccountLoaded: false
 });

@@ -1,25 +1,55 @@
 <template lang="html">
-  <div class="userinfo">
-    <div class="mcard media media-user" v-if="user">
-      <div class="media-content">
-        <div class="content">
-          <figure class="has-text-centered">
-            <div class="image is-64x64" style="margin: 0 auto;">
-              <img :src="user.photoURL" />
-            </div>
-          </figure>
-          <p class="has-text-centered ml-4">
-            <strong>{{ user.displayName }}</strong>
-            <a class="icon ml-1" @click="unregister"><i class="fa fa-trash"></i></a>
-          </p>
-        </div>
-      </div>
-      <a class="button is-primary" @click="signOut">Sign out</a>
-    </div>
-    <div class="mcard media media-user" v-else>
-      <a class="button is-primary" @click="signIn">Sign in with Google</a>
-    </div>
-  </div>
+  <v-card
+    v-if="user"
+    class="userinfo mt-2 ml-2 mr-2"
+  >
+    <v-layout
+      align-center
+      justify-center
+      column
+      class="pt-2 pb-2"
+    >
+        <v-card-media
+          :src="user.photoURL"
+          width="64px"
+          class="elevation-6 mt-3 mb-3"
+        >
+        </v-card-media>
+
+        <v-card-title class="subheading font-weight-bold">
+          <strong class="icon ml-3">{{ user.displayName }}</strong>
+          <a class="icon ml-2" @click="unregister"><i class="fa fa-trash"></i></a>
+        </v-card-title>
+
+        <v-list-tile-content>
+          <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
+        </v-list-tile-content>
+
+        <v-card-actions
+          class="mt-2 mb-2"
+        >
+          <v-btn color="teal lighten-2" @click="signOut">Sign out</v-btn>
+        </v-card-actions>
+    </v-layout>
+
+  </v-card>
+  <v-card
+    v-else
+    class="mt-2 ml-2 mr-2"
+  >
+    <v-layout
+      align-center
+      justify-center
+      column
+      class="pt-2 pb-2"
+    >
+      <v-card-actions
+        class="mt-3 mb-3"
+      >
+        <v-btn color="teal lighten-2" @click="signIn">Sign in with Google</v-btn>
+      </v-card-actions>
+    </v-layout>
+  </v-card>
 </template>
 
 <script>
@@ -40,27 +70,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.userinfo .mcard {
-  background: #fff;
-  border: solid 1px #e6e6e6;
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 32px auto;
-  padding: 16px 0;
-}
-.userinfo .media-user {
-  width: 280px;
-  height: 220px;
-}
-.userinfo {
-  justify-content: center;
-  align-items: flex-start;
-  display: flex;
-}
-</style>

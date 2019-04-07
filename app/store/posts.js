@@ -4,16 +4,16 @@ import dayjs from 'dayjs'
 const firestore = firebase.firestore();
 
 const usersCollection = firestore.collection('users');
-const postsCollection = firestore.collection('posts')
-  .where('state', 'array-contains', 'ACTIVE')
-  .orderBy('createdAt', 'desc');
+const postsCollection = firestore.collection('posts');
 
 export const state = () => ({
-  list: []
+  list: [],
+  one: null,
 });
 
 export const getters = {
-  list: state => state.list
+  list: state => state.list,
+  one: state => state.one,
 };
 
 export const mutations = {
@@ -21,13 +21,19 @@ export const mutations = {
 };
 
 export const actions = {
-  INIT_POSTS: firebaseAction(({ bindFirebaseRef }) => {
-    bindFirebaseRef('list', postsCollection)
+  INIT_POST: firebaseAction(({ bindFirebaseRef }, { id }) => {
+    bindFirebaseRef('one', postsCollection.doc(id))
   }),
-  ADD_POST: firebaseAction((ctx, { user, body }) => {
-    firestore.collection('posts')
+  INIT_POSTS: firebaseAction(({ bindFirebaseRef }) => {
+    bindFirebaseRef('list', postsCollection
+      .where('state', 'array-contains', 'ACTIVE')
+      .orderBy('createdAt', 'desc'))
+  }),
+  ADD_POST: firebaseAction((ctx, { user, title, body }) => {
+    postsCollection
       .doc()
       .set({
+        title,
         body,
         state: ['ACTIVE'],
         createdBy: usersCollection.doc(user.uid),
@@ -35,7 +41,7 @@ export const actions = {
       })
   }),
   DELETE_POST: firebaseAction((ctx, { user, post }) => {
-    firestore.collection('posts')
+    postsCollection
       .doc(post.id)
       .update({
         state: ['DELETED'],

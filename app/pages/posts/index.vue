@@ -3,17 +3,19 @@
     <v-layout justify-space-around column fill-height>
         <PostInputArea class="post-area" v-if="!!user" />
 
-        <ul class="list posts">
+        <v-list
+          class="list posts transparent"
+        >
           <transition-group name="post">
             <PostItem
-              class="list-item post"
+              class="list-item post mb-1"
               :user="user"
               :post="post"
               :key="post.id"
               v-for="post in posts"
             />
           </transition-group>
-        </ul>
+        </v-list>
     </v-layout>
   </v-container>
 </template>
