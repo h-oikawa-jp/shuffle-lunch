@@ -24,7 +24,23 @@
           <v-layout
             align-center
             justify-end
+            row
+            wrap
           >
+            <v-select
+              v-model="maxNumPerGroup"
+              :items="maxNumPerGroupItems"
+              label="グルーピング人数(default: 2)"
+              solo
+              dense
+              flat
+              hide-details
+              type="number"
+              suffix="人/組"
+              v-if="!isLocked"
+              class="maxNumSelect body-1"
+            ></v-select>
+
             <v-btn
               fab
               dark
@@ -127,6 +143,8 @@ export default {
     ]);
   },
   data: () => ({
+    maxNumPerGroupItems: [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20],
+    maxNumPerGroup: 2,
     rowsPerPageItems: [2, 4, 8, 16],
     pagination: {
       rowsPerPage: 2
@@ -164,7 +182,11 @@ export default {
       });
     },
     shuffle: function (event) {
-      axios.get(`/functions/shuffle/${this.post.id}`, {})
+      axios.get(`/functions/shuffle/${this.post.id}`, {
+        params: {
+          maxNum: this.maxNumPerGroup,
+        }
+      })
         .then(this.toggleLock)
     },
   },
@@ -172,12 +194,7 @@ export default {
 </script>
 
 <style scoped>
-  @keyframes slideIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  .maxNumSelect {
+    max-width: 6rem !important;
   }
 </style>

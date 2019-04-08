@@ -54,13 +54,14 @@ function shuffleUsers(users: DocumentSnapshot[], divideLength: number): Document
 /**
  * メインロジック
  * @param postId 対象イベントの Post ID
+ * @param maxNum 1グループの最大人数
  */
-async function main(postId: string) {
+async function main(postId: string, maxNum: number) {
   const db = admin.firestore();
 
   const users = await getUsers(db);
   console.info(`users: ${JSON.stringify(users.map(x => x.id))}`);
-  const shuffleUids = shuffleUsers(users, 2);
+  const shuffleUids = shuffleUsers(users, maxNum);
 
   return await putShufflesToPost(db, postId, shuffleUids);
 }
@@ -69,11 +70,13 @@ async function main(postId: string) {
  * Function Handler
  */
 export const shuffle = functions.https.onRequest((request, response) => {
-  const matches = request.path.match(/.*\/shuffle\/([^\/]+).*/i);
-  console.info(matches);
-  if (!matches) return response.status(404).send("URI error");
+  const pathMatches = request.path.match(/.*\/shuffle\/([^\/]+).*/i);
+  console.info(pathMatches);
+  if (!pathMatches) return response.status(404).send("URI error");
 
-  return main(matches[1])
+  const maxNum = parseInt(request.query['maxNum'], 10);
+
+  return main(pathMatches[1], maxNum || 2)
     .then((res) => {
       return response.status(200).send(res);
     }).catch((err) => {

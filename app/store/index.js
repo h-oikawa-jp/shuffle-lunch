@@ -34,8 +34,6 @@ export const actions = {
   async SET_CREDENTIAL({ commit }) {
     const user = await auth();
     if (user) {
-      // firebase.auth で取得したアカウント情報を firestore 'users' collection へ反映。
-      // => functions を使用してサーバ側でやるべき?
       firestore
         .collection('users')
         .doc(user.uid)
