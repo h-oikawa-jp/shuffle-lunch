@@ -1,5 +1,23 @@
 # Shuffle Lunch Matching App
 
+> Nuxt & Firebase(Hosting and Functions), Firestore, Google Auth Test
+
+
+## Requirements
+
+Need the following environment variables (from your Firebase project).
+
+```bash
+export APIKEY=
+export AUTHDOMAIN=
+export DATABASEURL=
+export PROJECTID=
+export STORAGEBUCKET=
+export MESSAGINGSENDERID=
+```
+
+recommendation: [direnv/direnv](https://github.com/direnv/direnv)
+
 
 ## Build Setup
 
@@ -18,5 +36,9 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
+## Deploy to Firebase
+
+```bash
+$ yarn deploy
+```
