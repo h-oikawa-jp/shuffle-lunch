@@ -1,7 +1,7 @@
 <template>
   <v-container column fill-height>
     <v-layout justify-space-around column fill-height>
-        <PostInputArea class="post-area" v-if="!!user" />
+        <PostInputArea class="post-area" v-if="user" />
 
         <v-list
           class="list posts transparent"

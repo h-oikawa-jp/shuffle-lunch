@@ -13,7 +13,8 @@
         </v-list-tile-content>
       </v-list-tile>
     </nuxt-link>
-    <nuxt-link to="/users">
+
+    <nuxt-link to="/users" v-if="user">
       <v-list-tile>
         <v-list-tile-action>
           <v-icon>group</v-icon>
@@ -25,3 +26,13 @@
     </nuxt-link>
   </v-list>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex'
+
+  export default {
+    computed: {
+      ...mapGetters(['user'])
+    },
+  }
+</script>

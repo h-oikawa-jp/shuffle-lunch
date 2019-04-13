@@ -16,10 +16,11 @@
 
         <v-divider></v-divider>
 
-        <ThePageLinks />
-
         <div v-if="!isAccountLoaded"><TheLoading /></div>
-        <div v-show="isAccountLoaded"><TheUserInfo /></div>
+        <div v-show="isAccountLoaded">
+          <ThePageLinks />
+          <TheUserInfo />
+        </div>
       </v-navigation-drawer>
 
       <v-toolbar color="teal" dark fixed app>

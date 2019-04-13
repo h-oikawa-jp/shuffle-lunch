@@ -10,7 +10,7 @@
       <p v-html="formattedPost"></p>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions v-if="user">
       <v-list-tile class="grow">
         <v-list-tile-action-text v-if="post.createdBy">
           posted by <strong>{{ post.createdBy.name }}</strong> ({{ post.createdBy.email }})

@@ -114,9 +114,16 @@
                       ></v-img>
                     </v-list-tile-avatar>
 
-                    <v-list-tile-content>
+                    <v-list-tile-content
+                      v-if="user.name || user.email"
+                    >
                       <v-list-tile-title>{{ user.name }}</v-list-tile-title>
                       <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
+                    </v-list-tile-content>
+                    <v-list-tile-content
+                      v-else
+                    >
+                      <v-list-tile-title>ユーザ情報はログイン後に見られるようになります</v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
                 </v-list>
