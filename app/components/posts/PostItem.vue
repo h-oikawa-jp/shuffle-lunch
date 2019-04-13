@@ -24,16 +24,6 @@
             fab
             dark
             small
-            color="indigo"
-            :to="detailLink"
-          >
-            <v-icon>edit</v-icon>
-          </v-btn>
-
-          <v-btn
-            fab
-            dark
-            small
             color="red"
             v-if="!isLocked"
             @click="deletePost"
