@@ -12,10 +12,6 @@
     ],
     "rewrites": [
       {
-        "source": "/functions/shuffle/**",
-        "function": "shuffle"
-      },
-      {
         "source": "/functions/shuffleEntry/**",
         "function": "shuffleEntry"
       },

@@ -9,7 +9,6 @@ export const helloWorld = functions.https.onRequest((request, response) => {
  response.send("Hello from Firebase!");
 });
 
-export * from "./shuffle";
 export * from "./shuffleEntry";
 export * from "./triggered/makeMatchingGroups";
 export * from "./triggered/countUpMatchMembers";
