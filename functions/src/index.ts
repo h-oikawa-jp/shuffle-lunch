@@ -11,3 +11,4 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 
 export * from "./shuffle";
 export * from "./shuffleEntry";
+export * from "./triggered/makeMatchingGroups";
