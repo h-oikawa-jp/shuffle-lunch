@@ -32,19 +32,6 @@ function putEntry(db: Firestore, post: DocumentReference, entryUsers: DocumentRe
 }
 
 /**
- * 配列をシャッフル
- */
-function shuffle(arr: Object[]): void {
-  // Fisher–Yates shuffle
-  for(let i = arr.length - 1; i > 0; i--){
-    const r = Math.floor(Math.random() * (i + 1));
-    const tmp = arr[i];
-    arr[i] = arr[r];
-    arr[r] = tmp;
-  }
-}
-
-/**
  * メインロジック
  * @param postId 対象イベントの Post ID
  * @param maxNum 1グループの最大人数
@@ -54,7 +41,6 @@ async function main(postId: string, maxNum: number) {
 
   const post = await getPost(db, postId);
   const users = await getUsers(db);
-  shuffle(users);
   console.info(`users: ${JSON.stringify(users.map(x => x.id))}`);
 
   return await putEntry(db, post.ref, users.map(x => x.ref), maxNum);
