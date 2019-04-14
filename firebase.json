@@ -16,6 +16,10 @@
         "function": "shuffle"
       },
       {
+        "source": "/functions/shuffleEntry/**",
+        "function": "shuffleEntry"
+      },
+      {
         "source": "/functions/helloWorld",
         "function": "helloWorld"
       }
