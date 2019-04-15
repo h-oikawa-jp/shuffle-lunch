@@ -76,66 +76,17 @@
           </v-layout>
         </v-list-tile>
 
-        <v-data-iterator
-          v-if="shuffledGroups.length !== 0"
-          :items="shuffledGroups"
-          :rows-per-page-items="rowsPerPageItems"
-          :pagination.sync="pagination"
-          content-tag="v-layout"
-          row
-          wrap
-          class="shuffles white mt-3 elevation-1"
-        >
-          <template v-slot:header>
-            <v-toolbar>
-              <v-toolbar-title>組合せ結果</v-toolbar-title>
-            </v-toolbar>
-          </template>
-
-          <template v-slot:item="groups">
-            <v-flex
-              xs12
-              md6
-            >
-              <v-card>
-                <v-card-title class="subheading font-weight-bold">{{groups.item.index + 1}}組目</v-card-title>
-
-                <v-divider></v-divider>
-
-                <v-list dense>
-                  <v-list-tile
-                    v-for="user in groups.item.users"
-                    class="mt-2 mb-2"
-                  >
-                    <v-list-tile-avatar color="grey darken-3">
-                      <v-img
-                        class="elevation-6"
-                        :src="user.icon"
-                      ></v-img>
-                    </v-list-tile-avatar>
-
-                    <v-list-tile-content
-                      v-if="user.name || user.email"
-                    >
-                      <v-list-tile-title>{{ user.name }}</v-list-tile-title>
-                      <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
-                    </v-list-tile-content>
-                    <v-list-tile-content
-                      v-else
-                    >
-                      <v-list-tile-title>ユーザ情報はログイン後に見られるようになります</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list>
-              </v-card>
-            </v-flex>
-          </template>
-        </v-data-iterator>
+        <MatchingList
+          :postId="post.id"
+          :entryId="post.lastEntryId"
+          :key="post.lastEntryId"
+        />
       </v-container>
     </v-layout>
 </template>
 
 <script>
+import MatchingList from '~/components/posts/MatchingList.vue'
 import h from 'htmlspecialchars'
 import { link } from 'autolinker'
 import { mapGetters, mapMutations } from 'vuex'
@@ -143,8 +94,12 @@ import axios from 'axios'
 import * as R from 'ramda'
 
 export default {
+  components: {
+    MatchingList,
+  },
   async mounted() {
     this.setPageName('イベント詳細');
+    this.resetState();
     await Promise.all([
       this.$store.dispatch('posts/INIT_POST', { id: this.$nuxt.$route.params.id })
     ]);
@@ -152,10 +107,6 @@ export default {
   data: () => ({
     maxNumPerGroupItems: [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20],
     maxNumPerGroup: 2,
-    rowsPerPageItems: [2, 4, 8, 16],
-    pagination: {
-      rowsPerPage: 2
-    },
   }),
   computed: {
     ...mapGetters(['user']),
@@ -171,15 +122,13 @@ export default {
         .replace(/(\n|\r)/g, "<br />");
       return link(nl2brBody)
     },
-    shuffledGroups() {
-      return this.post ? R.values(this.post.shuffles).map((users, index) => {
-        return { users, index }
-      }) : []
-    },
   },
   methods: {
     ...mapMutations(['setPageName']),
-    toggleLock: function (event) {
+    ...mapMutations({
+      resetState: 'posts/resetOne',
+    }),
+    toggleLock: async function (event) {
       this.$store.dispatch('posts/SET_POST_STATE', {
         state: (this.isLocked)
           ? this.post.state.filter(v => v !== 'LOCKED')
@@ -188,13 +137,15 @@ export default {
         post: this.post,
       });
     },
-    shuffle: function (event) {
-      axios.get(`/functions/shuffle/${this.post.id}`, {
-        params: {
-          maxNum: this.maxNumPerGroup,
-        }
-      })
-        .then(this.toggleLock)
+    shuffle: async function (event) {
+      await Promise.all([
+        this.toggleLock(event),
+        axios.get(`/functions/shuffleEntry/${this.post.id}`, {
+          params: {
+            maxNum: this.maxNumPerGroup,
+          }
+        }),
+      ]).catch(err => alert(`エラーが発生しました。: ${err}`));
     },
   },
 }
