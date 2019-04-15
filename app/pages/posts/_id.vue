@@ -77,8 +77,9 @@
         </v-list-tile>
 
         <MatchingList
-          :post="post"
-          v-if="post.lastEntryId"
+          :postId="post.id"
+          :entryId="post.lastEntryId"
+          :key="post.lastEntryId"
         />
       </v-container>
     </v-layout>
@@ -98,6 +99,7 @@ export default {
   },
   async mounted() {
     this.setPageName('イベント詳細');
+    this.resetState();
     await Promise.all([
       this.$store.dispatch('posts/INIT_POST', { id: this.$nuxt.$route.params.id })
     ]);
@@ -123,6 +125,9 @@ export default {
   },
   methods: {
     ...mapMutations(['setPageName']),
+    ...mapMutations({
+      resetState: 'posts/resetOne',
+    }),
     toggleLock: async function (event) {
       this.$store.dispatch('posts/SET_POST_STATE', {
         state: (this.isLocked)

@@ -57,11 +57,12 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
 
   export default {
     props: {
-      post: Object
+      postId: String,
+      entryId: String,
     },
     data: () => ({
       rowsPerPageItems: [2, 4, 8, 16],
@@ -71,13 +72,23 @@
       },
     }),
     async mounted() {
+      this.setEntryId(this.entryId);
       await Promise.all([
-        this.$store.dispatch('entries/INIT_ENTRY', { id: this.post.lastEntryId })
+        this.$store.dispatch('entries/INIT_ENTRIES', { postId: this.postId })
       ]);
     },
     computed: {
       ...mapGetters({
-        groups: 'entries/groups',
+        entry: 'entries/entry',
+      }),
+      groups() {
+        return this.entry.groups || [];
+      },
+    },
+    methods: {
+      ...mapMutations({
+        resetState: 'entries/resetState',
+        setEntryId: 'entries/setEntryId',
       }),
     },
   }

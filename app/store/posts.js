@@ -17,6 +17,9 @@ export const getters = {
 };
 
 export const mutations = {
+  resetOne(state) {
+    state.one = null;
+  },
   ...firebaseMutations
 };
 
