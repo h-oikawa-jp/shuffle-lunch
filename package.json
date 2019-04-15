@@ -1,0 +1,49 @@
+{
+  "name": "shuffle-lunch",
+  "version": "1.0.0",
+  "description": "Shuffle Lunch Matching App",
+  "author": "h-oikawa-jp <xyz@h-oikawa.jp>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "clean": "yarn clean:nuxt;yarn clean:dist",
+    "clean:nuxt": "rm -rf .nuxt",
+    "clean:dist": "rm -rf dist",
+    "dist": "yarn clean;yarn generate",
+    "serve": "firebase serve --only hosting",
+    "deploy": "yarn dist;firebase deploy",
+    "deploy:app": "yarn dist;yarn deploy:hosting",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:firestore": "firebase deploy --only firestore",
+    "deploy:functions": "firebase deploy --only functions",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "yarn lint"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.4.1",
+    "@nuxtjs/font-awesome": "^1.0.3",
+    "@nuxtjs/vuetify": "^0.5.5",
+    "autolinker": "^3.0.4",
+    "dayjs": "^1.8.9",
+    "firebase": "^5.8.6",
+    "htmlspecialchars": "^1.0.5",
+    "nuxt": "^2.0.0",
+    "ramda": "^0.26.1",
+    "uuid": "^3.3.2",
+    "vuexfire": "^3.0.0-alpha.14"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^4.19.1",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "firebase-tools": "^6.4.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0"
+  }
+}

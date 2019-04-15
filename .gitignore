@@ -1,3 +1,20 @@
 .tmp
 .work
+.envrc
 
+# dependencies
+node_modules
+
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+# Firebase
+.firebase
+firebase-debug.log
+.firebaserc
