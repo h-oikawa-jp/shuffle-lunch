@@ -15,14 +15,20 @@
         <template v-slot:items="props">
           <tr>
             <td>
-              <v-list-tile-avatar color="grey darken-3">
-                <v-img
-                  class="elevation-6"
-                  :src="props.item.icon"
-                ></v-img>
-              </v-list-tile-avatar>
+              <nuxt-link :to="`/users/${props.item.uid}`">
+                <v-list-tile-avatar color="grey darken-3">
+                  <v-img
+                    class="elevation-6"
+                    :src="props.item.icon"
+                  ></v-img>
+                </v-list-tile-avatar>
+              </nuxt-link>
             </td>
-            <td>{{ props.item.name }}</td>
+            <td>
+              <nuxt-link :to="`/users/${props.item.uid}`">
+                {{ props.item.name }}
+              </nuxt-link>
+            </td>
             <td>{{ props.item.email }}</td>
           </tr>
         </template>
