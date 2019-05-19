@@ -5,13 +5,39 @@
         grid-list-md
         v-if="post"
       >
-        <h3 class="heading">{{post.title}}</h3>
+        <v-text-field
+          v-if="!isLocked"
+          v-model="edit.title"
+          name="title"
+          label="タイトル編集"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-else
+          v-model="post.title"
+          readonly
+        ></v-text-field>
 
-        <v-container
-          v-if="post.body"
+        <v-textarea
+          v-if="!isLocked"
+          v-model="edit.body"
+          name="body"
+          label="内容編集"
+          box
+          auto-grow
+        ></v-textarea>
+        <p
+          v-else-if="post.body"
+          v-html="formattedPost"
+        ></p>
+
+        <v-btn
+          v-if="!isLocked"
+          color="success"
+          @click="updatePost"
         >
-          <p v-html="formattedPost"></p>
-        </v-container>
+          Submit
+        </v-btn>
 
         <v-list-tile
           v-if="user"
@@ -107,7 +133,16 @@ export default {
   data: () => ({
     maxNumPerGroupItems: [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20],
     maxNumPerGroup: 2,
+    edit: {},
   }),
+  beforeUpdate() {
+    if (this.post && !this.edit.title) {
+      this.edit = {
+        title: this.post.title,
+        body: this.post.body,
+      };
+    }
+  },
   computed: {
     ...mapGetters(['user']),
     ...mapGetters({
@@ -128,6 +163,13 @@ export default {
     ...mapMutations({
       resetState: 'posts/resetOne',
     }),
+    updatePost: async function (event) {
+      this.$store.dispatch('posts/UPDATE_POST', {
+        user: this.user,
+        post: this.post,
+        edit: this.edit,
+      });
+    },
     toggleLock: async function (event) {
       this.$store.dispatch('posts/SET_POST_STATE', {
         state: (this.isLocked)
